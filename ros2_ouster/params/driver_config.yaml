@@ -1,18 +1,18 @@
 ouster_driver:
   ros__parameters:
-    lidar_ip: 10.5.5.96         
-    computer_ip: 10.5.5.1    
-    lidar_mode: "1024x10"
+    lidar_ip: os-122140001125.local        
+    computer_ip: 169.254.55.233  
+    lidar_mode: "512x10"
     imu_port: 7503
     lidar_port: 7502
-    sensor_frame: laser_sensor_frame
-    laser_frame: laser_data_frame
-    imu_frame: imu_data_frame
+    sensor_frame: lidar_sensor_frame
+    laser_frame: lidar_link
+    imu_frame: lidar_imu_frame
 
     # if False, data are published with sensor data QoS. This is preferrable
     # for production but default QoS is needed for rosbag.
     # See: https://github.com/ros2/rosbag2/issues/125
-    use_system_default_qos: False
+    use_system_default_qos: True
 
     # Set the method used to timestamp measurements.
     # Valid modes are:
@@ -25,7 +25,7 @@ ouster_driver:
     # (See this project's README and/or the Ouster Software Guide for more
     # information).
     #
-    timestamp_mode: TIME_FROM_INTERNAL_OSC
+    timestamp_mode: TIME_FROM_ROS_RECEPTION
 
     # Mask-like-string used to define the data processors that should be
     # activated upon startup of the driver. This will determine the topics
