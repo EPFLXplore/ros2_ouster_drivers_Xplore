@@ -16,7 +16,8 @@ from ament_index_python.packages import get_package_share_directory
 import launch_ros
 from launch import LaunchDescription
 from launch_ros.actions import LifecycleNode
-from launch.actions import DeclareLaunchArgument
+from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
+from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration
 from launch.actions import EmitEvent
 from launch.actions import RegisterEventHandler
@@ -36,6 +37,17 @@ def generate_launch_description():
     parameter_file = LaunchConfiguration('params_file')
     node_name = 'ouster_driver'
 
+    use_rviz_arg = DeclareLaunchArgument(
+        "use_rviz",
+        default_value="true",
+    )
+    use_rviz = LaunchConfiguration("use_rviz", default="true")
+
+
+    description_pkg_share_dir = get_package_share_directory('xplore_description')
+    rviz_config_file = ''
+    rviz_config_path = os.path.join(description_pkg_share_dir, "rviz", rviz_config_file)
+
     # Acquire the driver param file
     params_declare = DeclareLaunchArgument('params_file',
                                            default_value=os.path.join(
@@ -50,6 +62,23 @@ def generate_launch_description():
                                 parameters=[parameter_file],
                                 arguments=['--ros-args', '--log-level', 'INFO'],
                                 namespace='/',
+                                )
+    imu_node = launch_ros.actions.Node(
+        package="imu_pub",
+        executable="imu_node",
+        name="imu_node",
+    )
+
+    robot_state_launch_cmd = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(description_pkg_share_dir, "launch", "xplore_real.launch.py")
+        ),
+        launch_arguments={
+            "use_rviz": use_rviz,
+            "rviz_config": rviz_config_path,
+        }.items(),
+    )
+
 
     configure_event = EmitEvent(
         event=ChangeState(
@@ -87,8 +116,11 @@ def generate_launch_description():
     )
 
     return LaunchDescription([
+        use_rviz_arg,
         params_declare,
         driver_node,
+        robot_state_launch_cmd,
+        imu_node,
         activate_event,
         configure_event,
         shutdown_event,
