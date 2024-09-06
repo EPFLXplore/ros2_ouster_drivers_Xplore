@@ -75,7 +75,7 @@ def generate_launch_description():
         ),
         launch_arguments={
             "use_rviz": use_rviz,
-            "rviz_config": rviz_config_path,
+            # "rviz_config": rviz_config_path,
         }.items(),
     )
 
