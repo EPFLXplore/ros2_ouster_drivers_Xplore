@@ -59,7 +59,7 @@ public:
     std::shared_ptr<sensor::FullRotationAccumulator> fullRotationAccumulator)
   : DataProcessorInterface(), _node(node), _frame(frame)
   {
-    _node->declare_parameter("pointcloud_filter_zero_points", false);
+    _node->declare_parameter("pointcloud_filter_zero_points", true);
     _node->get_parameter("pointcloud_filter_zero_points", _filter_zero_points);
 
     _fullRotationAccumulator = fullRotationAccumulator;
@@ -100,7 +100,9 @@ public:
       _cloud_filtered->points.clear();
 
       for (const auto & p : _cloud->points) {
-        if (p.x == 0.0 && p.y == 0.0 && p.z == 0.0) {
+        // if ((p.x == 0.0 && p.y == 0.0 && p.z == 0.0) | (p.x >= 30.0 | p.y >= 30.0 | p.z >= 10.0) ){
+        if (p.x == 0.0 && p.y == 0.0 && p.z == 0.0){
+
           continue;
         }
         _cloud_filtered->points.push_back(p);

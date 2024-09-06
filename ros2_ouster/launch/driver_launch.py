@@ -50,6 +50,7 @@ def generate_launch_description():
                                 parameters=[parameter_file],
                                 arguments=['--ros-args', '--log-level', 'INFO'],
                                 namespace='/',
+    )
 
     configure_event = EmitEvent(
         event=ChangeState(
