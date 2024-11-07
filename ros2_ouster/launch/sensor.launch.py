@@ -64,9 +64,9 @@ def generate_launch_description():
                                 namespace='/',
                                 )
     imu_node = launch_ros.actions.Node(
-        package="imu_pub",
-        executable="imu_node",
-        name="imu_node",
+        package="imu_pub_cpp",
+        executable="imu_pub_raw", # new imu publisher made by Nada and Arno
+        name="arduino_imu_node",
     )
 
     robot_state_launch_cmd = IncludeLaunchDescription(

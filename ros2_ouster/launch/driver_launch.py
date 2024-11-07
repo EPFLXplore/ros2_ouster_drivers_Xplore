@@ -40,7 +40,7 @@ def generate_launch_description():
     params_declare = DeclareLaunchArgument('params_file',
                                            default_value=os.path.join(
                                                share_dir, 'params', 'driver_config.yaml'),
-                                           description='FPath to the ROS2 parameters file to use.')
+                                           description='Path to the ROS2 parameters file to use.')
 
     driver_node = LifecycleNode(package='ros2_ouster',
                                 executable='ouster_driver',
@@ -50,6 +50,17 @@ def generate_launch_description():
                                 parameters=[parameter_file],
                                 arguments=['--ros-args', '--log-level', 'INFO'],
                                 namespace='/',
+                                remappings=[
+                                    ('/imu', '/ouster_imu'),
+                                    ('/points', '/ouster_points'),
+                                    ('/points_with_gps', '/ouster_points_with_gps'),
+                                    ('/temperature', '/ouster_temperature'),
+                                    ('/lidar_status', '/ouster_lidar_status'),
+                                    ('/lidar_info', '/ouster_lidar_info'),
+                                    ('/imu_info', '/ouster_imu_info'),
+                                    ('/temperature_info', '/ouster_temperature_info'),
+                                ]
+    )
 
     configure_event = EmitEvent(
         event=ChangeState(
