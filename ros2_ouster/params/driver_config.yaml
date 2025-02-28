@@ -4,6 +4,8 @@ ouster_driver:
     # computer_ip: 169.254.55.233
     # netmask : 255.255.255.0
     # 169.254.55.89
+    # non static ip for now
+    #169.254.55.231
     computer_ip: 169.254.55.231
     lidar_mode: "512x10"
     imu_port: 7503
