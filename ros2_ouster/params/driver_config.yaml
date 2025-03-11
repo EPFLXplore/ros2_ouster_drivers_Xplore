@@ -7,12 +7,12 @@ ouster_driver:
     # non static ip for now
     #169.254.55.231
     computer_ip: 169.254.55.231
-    lidar_mode: "512x10"
+    lidar_mode: "1024x10"
     imu_port: 7503
     lidar_port: 7502
-    sensor_frame: lidar_sensor_frame
+    sensor_frame: laser_sensor_frame
     laser_frame: lidar_link
-    imu_frame: lidar_imu_frame
+    imu_frame: lidar_link
 
     # if False, data are published with sensor data QoS. This is preferrable
     # for production but default QoS is needed for rosbag.
@@ -54,4 +54,4 @@ ouster_driver:
     # IMG|PCL|IMU|SCAN
     # PCL
     #
-    proc_mask: PCL|IMU
+    proc_mask: PCL|IMU|SCAN
