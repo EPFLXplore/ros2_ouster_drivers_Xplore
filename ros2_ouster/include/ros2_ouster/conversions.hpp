@@ -158,8 +158,8 @@ inline sensor_msgs::msg::Imu toMsg(
     m.linear_acceleration_covariance[i] = 0;
   }
   for (int i = 0; i < 9; i += 4) {
-    m.linear_acceleration_covariance[i] = 0.01;
-    m.angular_velocity_covariance[i] = 6e-4;
+    m.linear_acceleration_covariance[i] = 0.05;
+    m.angular_velocity_covariance[i] = 6e-3;
   }
 
   return m;
