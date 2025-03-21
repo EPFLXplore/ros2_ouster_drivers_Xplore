@@ -7,7 +7,7 @@ ouster_driver:
     # non static ip for now
     #169.254.55.231
     computer_ip: 169.254.55.231
-    lidar_mode: "1024x10"
+    lidar_mode: "2048x10"
     imu_port: 7503
     lidar_port: 7502
     sensor_frame: laser_sensor_frame

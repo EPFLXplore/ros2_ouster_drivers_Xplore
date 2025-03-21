@@ -51,7 +51,7 @@ def generate_launch_description():
                                 arguments=['--ros-args', '--log-level', 'INFO'],
                                 namespace='/',
                                 remappings=[
-                                    ('/imu', '/imu/data_raw'),
+                                    ('/imu', '/ouster_imu'),
                                     ('/points', '/ouster_points'),
                                     ('/points_with_gps', '/ouster_points_with_gps'),
                                     ('/temperature', '/ouster_temperature'),
