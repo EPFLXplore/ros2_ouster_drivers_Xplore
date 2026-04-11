@@ -10,7 +10,7 @@ ouster_driver:
     lidar_mode: "2048x10"
     imu_port: 7503
     lidar_port: 7502
-    sensor_frame: laser_sensor_frame
+    sensor_frame: ST_Lidar_1
     laser_frame: ST_Lidar_1
     imu_frame: ST_Lidar_1
 

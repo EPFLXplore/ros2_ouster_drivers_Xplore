@@ -199,15 +199,21 @@ void OusterDriver::broadcastStaticTransforms(
 {
   if (_tf_b) {
     std::vector<geometry_msgs::msg::TransformStamped> transforms;
-    transforms.push_back(
-      toMsg(
-        mdata.imu_to_sensor_transform,
-        _laser_sensor_frame, _imu_data_frame, this->now()));
-    transforms.push_back(
-      toMsg(
-        mdata.lidar_to_sensor_transform,
-        _laser_sensor_frame, _laser_data_frame, this->now()));
-    _tf_b->sendTransform(transforms);
+    if (_laser_sensor_frame != _imu_data_frame) {
+      transforms.push_back(
+        toMsg(
+          mdata.imu_to_sensor_transform,
+          _laser_sensor_frame, _imu_data_frame, this->now()));
+    }
+    if (_laser_sensor_frame != _laser_data_frame) {
+      transforms.push_back(
+        toMsg(
+          mdata.lidar_to_sensor_transform,
+          _laser_sensor_frame, _laser_data_frame, this->now()));
+    }
+    if (!transforms.empty()) {
+      _tf_b->sendTransform(transforms);
+    }
   }
 }
 
